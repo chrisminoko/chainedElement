@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Chained Elements</title>
+    <base href="/">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="./divided-element.js"></script>
+    <script src="./power.js"></script>
+    <script src="./squareroot.js"></script>
+    <script src="./multiply.js"></script>
+    <script src="./home-element.js"></script>
+</head>
+
+<body>
+
+
+    <input id="txtInput" type="text" placeholder="Enter Value">
+
+    <button onclick="getInput();">Enter Number</button>
+
+    <app-multiplication id="multiplicationElement"></app-multiplication>
+    <app-power id="powerElement"></app-power>
+    <element-divide id="divideElement"></element-divide>
+    <subtraction-custom id="elementid"></subtraction-custom>
+    <custom-square-root id="sqrtComponent"></custom-square-root>
+
+
+    <script>
+        function getInput() {
+            document.getElementById('powerElement').setAttribute("Inputvalue", getTextBoxValue('txtInput'))
+        }
+
+        function getTextBoxValue(txtInput_Value) {
+            return document.getElementById(txtInput_Value).value;
+        }
+    </script>
+
+
+    <script>
+
+        const multiplication = document.querySelector('app-multiplication');
+        multiplication.addEventListener('action', (event) => {
+            console.log(`"multiplication " emitted: ${event.detail}`);
+        });
+
+        const pow = document.querySelector('app-power');
+        pow.addEventListener('result', (event) => {
+            console.log(`"power" emitted: ${event.detail}`);
+            document.getElementById("sqrtComponent").inputvalue = event.detail;
+        });
+
+
+        const divide = document.querySelector('element-divide');
+        divide.addEventListener('output', (event) => {
+            console.log(`"divide" emitted: ${event.detail}`);
+            document.getElementById('elementid').firstvalue = event.detail;
+        });
+
+
+        const subtract = document.querySelector('subtraction-custom');
+        subtract.addEventListener('action', (event) => {
+            console.log(`"subtraction result" emitted: ${event.detail}`);
+            document.getElementById('multiplicationElement').inputValue = event.detail;
+        });
+
+
+        const sqrt = document.querySelector('custom-square-root');
+        sqrt.addEventListener('result', (event) => {
+            console.log(`"result" emitted: ${event.detail}`);
+            document.getElementById("divideElement").Num1 = event.detail;
+        });
+
+    </script>
+
+</body>
+
+</html>
